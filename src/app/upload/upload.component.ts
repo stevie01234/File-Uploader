@@ -1,13 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { FileService } from '../file.service';
+import { PdfViewerComponent } from '../pdf-viewer/pdf-viewer.component';
 
 @Component({
   selector: 'app-upload',
   standalone: true,
-  imports: [],
+  imports: [
+    PdfViewerComponent
+  ],
   template: `
     <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
     <button class="upload-btn" (click)="uploadFile()"> Upload </button>
 
+    
+    <app-pdf-viewer [file]="file"></app-pdf-viewer>
+    
     <!---
     
 
@@ -23,6 +30,7 @@ import { Component } from '@angular/core';
   styleUrl: './upload.component.css'
 })
 export class UploadComponent {
+  fileService: FileService = inject(FileService);
   file!: File;
 
   onFileSelected(event: any) {
@@ -30,8 +38,11 @@ export class UploadComponent {
 
     if(uploadFile) {
       this.file = uploadFile;
+      //this.fileService.setFile(this.file);
       //const formData = new FormData();
       //formData.append("thumbnail", uploadFile);
+      // const reader = new FileReader();
+      console.log(this.file);
     }
   }
 

@@ -12,6 +12,7 @@ export class FileService {
 
   fileSystem = require('fs');
   directory = "/assets/saved_files";
+  file!: File;
 
   getAllFiles() {
     const fileList = this.fileSystem.readdir(this.directory, (error: Error, files: File[]) => {
@@ -26,10 +27,23 @@ export class FileService {
     //return fileList;
   }
 
+  setFile(file: File) {
+    // TODO
+    // calls a privare function that gets the actual (pdf) file
+    this.file = file;
+  }
+
+  getFile(): File {
+    return this.file;
+  }
+
+  //getFileByName(file: File): File { }
+
+  
   /*
 
-  getFileByName(name: string): FileLocation {
-
+  getUploadedFile() {
+    return this.file;
   }
 
   getPaths(dirHandle: FileSystemDirectoryHandle) {
